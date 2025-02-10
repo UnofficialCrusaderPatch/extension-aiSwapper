@@ -94,7 +94,9 @@ local function setAiTexts(aiIndexToReplace, pathroot, aiName, aiLang)
   if aiNameStr then
     for i = 1, 8 do
       local title = transformedIndexLineData["TITLE_" .. i]
-      if title then
+      local completeKey = "COMPLETE_TITLE_" .. i
+      local completePresent = transformedIndexLineData[completeKey] ~= nil
+      if completePresent == false and title ~= nil then
         transformedIndexLineData["COMPLETE_TITLE_" .. i] = string.format("%s, %s", aiNameStr, title)
       end
     end
