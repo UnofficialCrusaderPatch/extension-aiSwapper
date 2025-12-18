@@ -38,7 +38,10 @@ local function setAiBinks(aiIndexToReplace, pathroot, aiName, aiLang)
   local transformedIndexMappingData = util.createTableWithTransformedKeys(mappingData, string.upper)
   for typeName, binkPath in pairs(transformedIndexMappingData) do
     local completeBinkPath = string.format("%s/%s", binkRootPath, binkPath)
-    if util.doesFileExist(completeBinkPath) then
+    if completeBinkPath:sub(-8, -1):lower() == "null.bik" then
+      transformedIndexMappingData[typeName] = "null.bik"
+      log(WARNING, string.format("Setting special 'null.bik' for ai '%s'. '%s' technically does not exist.", aiName, completeBinkPath))
+    elseif util.doesFileExist(completeBinkPath) then 
       transformedIndexMappingData[typeName] = completeBinkPath
     else
       log(WARNING, string.format("Problems with bink file of AI '%s'. '%s' does not exist.", aiName, completeBinkPath))
