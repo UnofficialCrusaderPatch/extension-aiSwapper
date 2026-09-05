@@ -178,9 +178,9 @@ class CompactAiMenu {
     allControl.replaceChildren();
     slotControl.hidden = allControl.hidden = !QUALIFIER_EDITING;
     if (QUALIFIER_EDITING) {
-      slotControl.appendChild(createQualifierControl(qualifierKeys(this.current), localize('qualifier.slot'), () => this.render()));
+      slotControl.appendChild(createQualifierControl(qualifierKeys(this.current), localize('qualifier.slot'), () => this.render(), qualifierScope(this.current)));
       allControl.appendChild(document.createElement('span')).textContent = localize('qualifier.all');
-      allControl.appendChild(createQualifierControl(qualifierKeys(), localize('qualifier.all'), () => this.render()));
+      allControl.appendChild(createQualifierControl(qualifierKeys(), localize('qualifier.all'), () => this.render(), qualifierScope()));
     }
     this.renderCards();
     const diagnostics = document.querySelector(".compact-diagnostics");

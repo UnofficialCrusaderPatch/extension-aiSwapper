@@ -11,6 +11,13 @@ vm.runInContext(`
   USER_QUALIFIERS = {'ai.rat.speech': 'required', 'ai.wolf.aic': 'required'};
   assert.deepEqual(Array.from(qualifierKeys('rat')), ['ai.rat.speech', 'ai.rat.portrait']);
   assert.equal(qualifierKeys().length, 3);
+  USER_QUALIFIERS['ai.rat.speech'] = 'required';
+  const partial = createQualifierControl(['ai.rat.speech'], 'Rat', () => {}, ['ai.rat.speech', 'ai.rat.portrait']);
+  assert.equal(partial.className, 'qualifier-control qualifier-mixed');
+  partial.onclick();
+  assert.equal(USER_QUALIFIERS['ai.rat.speech'], 'suggested');
+  assert.equal(USER_QUALIFIERS['ai.rat.portrait'], undefined);
+  USER_QUALIFIERS['ai.rat.speech'] = 'required';
   let renders = 0;
   const mixed = createQualifierControl(qualifierKeys('rat'), 'Rat', () => renders++);
   assert.equal(mixed.className, 'qualifier-control qualifier-mixed');

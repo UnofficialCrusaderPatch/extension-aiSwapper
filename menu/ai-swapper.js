@@ -10,6 +10,10 @@ function qualifierKeys(slotName) {
   return Object.entries(createResultConfig()).filter(([key, value]) => value !== undefined &&
     /^ai\.[^.]+\.[^.]+$/.test(key) && (!slotName || key.startsWith(`ai.${slotName}.`))).map(([key]) => key);
 }
+function qualifierScope(slotName) {
+  return [...AI_SLOTS].filter(([name]) => !slotName || name === slotName).flatMap(([name, slot]) =>
+    AI_CONTROL_SETTINGS.filter((component) => !slot.isComponentRequired(component)).map((component) => `ai.${name}.${component}`));
+}
 // Same Bootstrap Icons as the host GUI (react-bootstrap-icons 1.11.4).
 // See menu/bootstrap-icons-LICENSE.txt. Static SVG paths are never AI data.
 const QUALIFIER_ICON_PATHS = {
@@ -18,10 +22,11 @@ const QUALIFIER_ICON_PATHS = {
   "mixed": "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
 };
 
-function createQualifierControl(keys, label, onChange) {
+function createQualifierControl(keys, label, onChange, scope = keys) {
   const button = document.createElement('button');
   const states = new Set(keys.map((key) => USER_QUALIFIERS[key] === 'required' ? 'required' : 'suggested'));
-  const state = states.size > 1 ? 'mixed' : states.has('required') ? 'required' : 'suggested';
+  const actionState = states.size > 1 ? 'mixed' : states.has('required') ? 'required' : 'suggested';
+  const state = actionState === 'required' && scope.some((key) => !keys.includes(key)) ? 'mixed' : actionState;
   button.type = 'button';
   button.className = `qualifier-control qualifier-${state}`;
   button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${QUALIFIER_ICON_PATHS[state]}"/></svg>`;
@@ -30,7 +35,7 @@ function createQualifierControl(keys, label, onChange) {
   button.setAttribute('aria-pressed', state === 'mixed' ? 'mixed' : String(state === 'required'));
   button.disabled = !keys.length;
   button.onclick = () => {
-    const next = state === 'required' ? 'suggested' : 'required';
+    const next = actionState === 'required' ? 'suggested' : 'required';
     keys.forEach((key) => { USER_QUALIFIERS[key] = next; });
     onChange();
   };
@@ -1421,9 +1426,9 @@ class CompactAiMenu {
     allControl.replaceChildren();
     slotControl.hidden = allControl.hidden = !QUALIFIER_EDITING;
     if (QUALIFIER_EDITING) {
-      slotControl.appendChild(createQualifierControl(qualifierKeys(this.current), localize('qualifier.slot'), () => this.render()));
+      slotControl.appendChild(createQualifierControl(qualifierKeys(this.current), localize('qualifier.slot'), () => this.render(), qualifierScope(this.current)));
       allControl.appendChild(document.createElement('span')).textContent = localize('qualifier.all');
-      allControl.appendChild(createQualifierControl(qualifierKeys(), localize('qualifier.all'), () => this.render()));
+      allControl.appendChild(createQualifierControl(qualifierKeys(), localize('qualifier.all'), () => this.render(), qualifierScope()));
     }
     this.renderCards();
     const diagnostics = document.querySelector(".compact-diagnostics");
