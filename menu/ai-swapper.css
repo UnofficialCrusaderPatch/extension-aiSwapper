@@ -561,9 +561,9 @@ input[type="search"] {
 }
 
 /* Creator controls occupy the existing overview/help rows, never the AI cards. */
-button.qualifier-control { width: 18px; height: 18px; padding: 0; border: 0; border-image: none; background: transparent; font: 12px Arial; line-height: 12px; color: #000; vertical-align: middle; }
+button.qualifier-control { width: 16px; height: 18px; padding: 0; border: 0; border-image: none; background: transparent; font: 12px Arial; line-height: 12px; color: #000; vertical-align: middle; }
 .qualifier-control:disabled { opacity: .4; cursor: default; }
-.compact-summary .has-qualifier { position: relative; padding-inline-end: 22px; }
+.compact-summary .has-qualifier { position: relative; padding-inline-end: 20px; }
 .compact-summary .qualifier-control { position: absolute; inset-inline-end: 2px; top: 50%; transform: translateY(-50%); }
 .compact-slot-heading, .compact-help-row { display: flex; align-items: center; gap: 4px; min-width: 0; }
 .compact-help-row { justify-content: space-between; }
@@ -572,6 +572,16 @@ button.qualifier-control { width: 18px; height: 18px; padding: 0; border: 0; bor
 .compact-all-qualifier { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 11px; }
 
 .qualifier-control svg { width: 12px; height: 12px; vertical-align: top; }
+
+.qualifier-control.qualifier-required,
+.qualifier-control.qualifier-suggested {
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 16px 16px;
+  image-rendering: pixelated;
+}
+.qualifier-control.qualifier-required { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB2ElEQVR4AbSSTUvjUBSG3yS1tU4ts5jNDHQ9MItZzGJ28wNmKaI/QBeCbsSPtSsXRfygm4KILrpQC7ppherCjSA2aIUKam1aqlKDH6hprUmapNebYI0lFRdiyMm5h3POc99zc1l88PlcgCRJpFgsklgsRt4S+qaCVCpF4vE4QqEQMpkM8vl8U0hTgCAIJJvNIpFIIBgMMrlcDjzPIxqNOiBNAel0GslkEpFIhDGlh8Nhxu/3g6oywwZrCmioeA4CgQBkWX6ObOcArI/+IR2VOUz2SSDFfkI2u4mx8J9wsQF0+XiMd/5sGMMB0KoMptfymBzbxsTQJqZmDzCzXsDq3iW2Tu5wca/a29OVA9Du5aDqBBXVwLFYwfDSkWU/vnogVw1U9Rpts18HwOt24bKk4oparWarbXNTsGZA0d4BiJKCNgr51u5GawuHnn8Ba7tf332W93k4y9c/bH1R99KjQUcwUFYMcDQ7v3Vupa4fqnCxLLRXqswELTGdbSVFh5t2GrTwi8eF+d7f2Bj5i4PzEh7oubwey+xyAHR6gK10Xm8Li3tZw44gYZkXsVsoo0Rj6VE3+17MARhcPGTSZ2Vk6B8Qb1Wc3coo3CgQrirYPy1jZU+0bmed8AQAAP//mKROSwAAAAZJREFUAwD6ydG8mzM7mwAAAABJRU5ErkJggg=="); }
+.qualifier-control.qualifier-suggested { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACAklEQVR4AYxSPW/TUBQ9tuPEKW3EwAJSZiQGBgYkBtgZWILCD4CNCRWYGJhAihAfiiKlYihDBiARLAlSytClCJGIBimVCkmcKLQKVgsqtVPXdmzn9T2rSuO6VWPp+Pp+nXfv8eOx/6iqSnq9HikWi2Q/NJHxCGq1GimVSkin02g0Guh0OhOT8LIsk1arhXK5jFQqxbXbbVSrVeTz+YlI+Hq9jkqlglwux7GZs9ksF4vFQKdi7onwVjhcFY/HYRjG4fCRPp9IJDhN03xJURSh67ovdpzDFwoFIkmSL99sNiEIgi92nMMnk0kuk8l4+7OihYeXyA11DnOzDkjvLiGLt4j75jpZfXqNfHl0hTy5ed4nbkADe8Dh5acOnj/+imezi3jxegWvFrr4uLyBpeZ//Nm22DkjBAhmogIsh0C3XPxSdNx/99PDudMRGAMXA2c4amYfAYJoOIQNzcImxXB4MO1UmBLbLkz7BAJFNTFFSc7MhCGJAm5fjbODcOHstGenI35xeS869lJ3XbqCi77pQqDZ+aV1L/t3Z4AQz8Mem4olaAkzB9BMB2Ha6dLCU5EQ5u9cxOcHl7GyrmGH6jK+FusKEDhUQInuGxV5bBs2vskq3lcVfO/2oVFf3XVY3wgBgntvV7n6Wh8N+geULQtrWwa6/0zImzp+/O7jw7IyujOMZQ8AAP//mzV5gQAAAAZJREFUAwC3BOO8hkrqGQAAAABJRU5ErkJggg=="); }
 
 @font-face {
   font-family: "River Avenue";

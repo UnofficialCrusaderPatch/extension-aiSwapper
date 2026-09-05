@@ -560,9 +560,9 @@ input[type="search"] {
 }
 
 /* Creator controls occupy the existing overview/help rows, never the AI cards. */
-button.qualifier-control { width: 18px; height: 18px; padding: 0; border: 0; border-image: none; background: transparent; font: 12px Arial; line-height: 12px; color: #000; vertical-align: middle; }
+button.qualifier-control { width: 16px; height: 18px; padding: 0; border: 0; border-image: none; background: transparent; font: 12px Arial; line-height: 12px; color: #000; vertical-align: middle; }
 .qualifier-control:disabled { opacity: .4; cursor: default; }
-.compact-summary .has-qualifier { position: relative; padding-inline-end: 22px; }
+.compact-summary .has-qualifier { position: relative; padding-inline-end: 20px; }
 .compact-summary .qualifier-control { position: absolute; inset-inline-end: 2px; top: 50%; transform: translateY(-50%); }
 .compact-slot-heading, .compact-help-row { display: flex; align-items: center; gap: 4px; min-width: 0; }
 .compact-help-row { justify-content: space-between; }
@@ -571,3 +571,13 @@ button.qualifier-control { width: 18px; height: 18px; padding: 0; border: 0; bor
 .compact-all-qualifier { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 11px; }
 
 .qualifier-control svg { width: 12px; height: 12px; vertical-align: top; }
+
+.qualifier-control.qualifier-required,
+.qualifier-control.qualifier-suggested {
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 16px 16px;
+  image-rendering: pixelated;
+}
+.qualifier-control.qualifier-required { background-image: url("assets/ucp3/qualifier-required.png"); }
+.qualifier-control.qualifier-suggested { background-image: url("assets/ucp3/qualifier-suggested.png"); }

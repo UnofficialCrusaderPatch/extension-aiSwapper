@@ -16,8 +16,6 @@ function qualifierScope(slotName) {
 // Same Bootstrap Icons as the host GUI (react-bootstrap-icons 1.11.4).
 // See menu/bootstrap-icons-LICENSE.txt. Static SVG paths are never AI data.
 const QUALIFIER_ICON_PATHS = {
-  "required": "M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2",
-  "suggested": "M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2M3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z",
   "mixed": "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
 };
 
@@ -28,7 +26,7 @@ function createQualifierControl(keys, label, onChange, scope = keys) {
   const state = actionState === 'required' && scope.some((key) => !keys.includes(key)) ? 'mixed' : actionState;
   button.type = 'button';
   button.className = `qualifier-control qualifier-${state}`;
-  button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${QUALIFIER_ICON_PATHS[state]}"/></svg>`;
+  button.innerHTML = state === 'mixed' ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${QUALIFIER_ICON_PATHS[state]}"/></svg>` : '';
   button.title = `${label}: ${localize(`qualifier.${state}`)}. ${localize(keys.length ? 'qualifier.action' : 'qualifier.empty')}`;
   button.setAttribute('aria-label', button.title);
   button.setAttribute('aria-pressed', state === 'mixed' ? 'mixed' : String(state === 'required'));
