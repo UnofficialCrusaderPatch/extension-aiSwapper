@@ -27,3 +27,5 @@ The old dialog presentation has been removed; its AI configuration model remains
 The optional host `qualifierEditing` capability and `creatorMode` flag enable persistent component/slot/all-slot controls. Old GUIs keep the original menu with these controls hidden. `getConfigQualifiers()` returns staged qualifiers separately from `getConfig()`; Close never changes host state.
 
 Group controls cover explicit runtime component overrides only, excluding inherited values, the submenu bookkeeping object and default language. Mixed becomes Required on the next click; Required becomes Suggested. A component must have a local selection before its qualifier can be changed. Upstream required components remain locked. Keep this independent from the enabled/inherit/deactivated sword cycle.
+
+Qualifier icons reuse the host GUI's Bootstrap Icons: open padlock for Suggested, closed padlock for Required, dash for Mixed. Static SVG paths come from `react-bootstrap-icons` 1.11.4; its license is packaged in `menu/bootstrap-icons-LICENSE.txt`.
