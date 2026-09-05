@@ -1,0 +1,62 @@
+{
+  "button_ucp.png": {
+    "source": "src/assets/ucp3/button_ucp.png",
+    "sha256": "dc042777d488c8bd3948fddcf28e3f8ee07dda04f6a252fe8b6748698d6439d2"
+  },
+  "button_ucp_hover.png": {
+    "source": "src/assets/ucp3/button_ucp_hover.png",
+    "sha256": "47bf1d7510a21cfff548f7b3cea0abcdca7e148527a9a4dd838ca469589f5398"
+  },
+  "button_ucp_active.png": {
+    "source": "src/assets/ucp3/button_ucp_active.png",
+    "sha256": "33f5a10ee09b568a4fabaf54cf10369b505b5cd33fb2970dc613673999a80f95"
+  },
+  "checkbox_empty.png": {
+    "source": "src/assets/ucp3/checkbox_empty.png",
+    "sha256": "a44c3ca6989cf04b22eb52613f0e9da59a1df9fa608ff51d6a1d3a9f8efc5566"
+  },
+  "checkbox_full.png": {
+    "source": "src/assets/ucp3/checkbox_full.png",
+    "sha256": "7b8922d80c89cbf93e4c979ee9d188da2a7734dac87e1293371a0c41e7b743f4"
+  },
+  "move_up.png": {
+    "source": "src/assets/ucp3/move_up.png",
+    "sha256": "5033b8c0c8d96b90c7ffe60f267d58cc046a374e792611f8b0439374c265abf8"
+  },
+  "move_down.png": {
+    "source": "src/assets/ucp3/move_down.png",
+    "sha256": "0c9af774e55a3a9779444f4573c894bf1ef1129aa5d3093a9e0a0e722917cd1e"
+  },
+  "remove.png": {
+    "source": "src/assets/ucp3/remove.png",
+    "sha256": "7747c800d3a06772d0d2700b3e77ebb2557e7c560ca6db3016843f46d925ce09"
+  },
+  "checkbox_red_active.png": {
+    "source": "src/assets/ucp3/checkbox_red_active.png",
+    "sha256": "494d619b30000af20c72ce7db00be13b6d8e144997d89b58d9159d19bc75614c"
+  },
+  "search.png": {
+    "source": "src/assets/ucp3/search.png",
+    "sha256": "4514a607e8b39700e0fccee0d0fff06f144561ef324943f0b327bc653429eb7a"
+  },
+  "fonts/riverave.ttf": {
+    "source": "src/assets/ucp3/fonts/riverave.ttf",
+    "sha256": "88d7c4b8ad2dcd36ec40b640d77b44c2bd5d246044778e87471fff627ad49471"
+  },
+  "scroll_bar_middle.png": {
+    "source": "src/assets/ucp3/scroll_bar_middle.png",
+    "sha256": "9eada3e2040617c2539c1d8b5e0a7b859c795bb437f4e208a68c69a6b95c527c"
+  },
+  "scroll_bar_bottom.png": {
+    "source": "src/assets/ucp3/scroll_bar_bottom.png",
+    "sha256": "b654515367f5e385b73081c3f99883716ce7771fc6b95a33bd9445dd8bdaef8f"
+  },
+  "outline_border.png": {
+    "source": "src/assets/ucp3/outline_border.png",
+    "sha256": "1d53603b036fb51ba47888f3868efd451bff414a121f7466658f3186494a2f83"
+  },
+  "ornament_border.png": {
+    "source": "src/assets/ucp3/ornament_border.png",
+    "sha256": "5f19c1fa905e6646473d4d2a534582c99029a4aeeefe05e9edd198ef92c1ffc6"
+  }
+}

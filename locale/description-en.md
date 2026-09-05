@@ -12,3 +12,7 @@ The priority order of user added AIs can be changed and the first AI in the list
 ### Feedback
 
 Should issues or suggestions arise that are related to this module, feel free to add a new GitHub issue.
+
+### Menu controls
+
+Click a card to add an AI. Component clicks cycle through enabled (normal sword), inherit (empty box), and deactivated (red sword). Inherit passes control to the next AI; deactivated uses the original game component.

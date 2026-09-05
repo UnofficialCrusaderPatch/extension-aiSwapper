@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "River Avenue";
+  src: url("assets/ucp3/fonts/riverave.ttf");
+}
+
+/** sword-checkbox **/
+.sword-checkbox input[type="checkbox"],
+.sword-checkbox input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.sword-checkbox input[type="checkbox"] + label,
+.sword-checkbox input[type="radio"] + label {
+  display: block;
+  position: relative;
+  /* padding-left: 32px; */
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.sword-checkbox input[type="checkbox"]:hover + label:hover,
+.sword-checkbox input[type="radio"]:hover + label:hover {
+  cursor: pointer;
+}
+
+.sword-checkbox input[type="checkbox"]:hover + label:before,
+.sword-checkbox input[type="radio"]:hover + label:before {
+}
+
+.sword-checkbox input[type="checkbox"] + label:last-child,
+.sword-checkbox input[type="radio"] + label:last-child {
+  margin-bottom: 0;
+}
+
+.sword-checkbox input[type="checkbox"] + label:before,
+.sword-checkbox input[type="radio"] + label:before {
+  content: "";
+  display: inline-flex;
+  background-image: url("assets/ucp3/checkbox_empty.png");
+  background-size: cover;
+  width: 19px;
+  height: 19px;
+
+  /* position: absolute; */
+  /* left: 0px;
+  top: -3px; */
+  -webkit-transition:
+    all 0.1s,
+    background 0.1s ease-in-out;
+  transition:
+    all 0.1s,
+    background 0.1s ease-in-out;
+}
+
+.sword-checkbox input[type="checkbox"]:checked + label:before,
+.sword-checkbox input[type="radio"]:checked + label:before {
+  background-image: url("assets/ucp3/checkbox_full.png");
+}
+
+/* Styles for disabled input elements */
+.sword-checkbox input[type="checkbox"]:disabled + label,
+.sword-checkbox input[type="radio"]:disabled + label {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sword-checkbox input[type="checkbox"]:disabled + label:before,
+.sword-checkbox input[type="radio"]:disabled + label:before {
+}
+
+/* Same source assets and label markup as UCP; one optical offset for every sword. */
+:root {
+  --sword-offset-y: -2px;
+}
+.sword-checkbox {
+  position: relative;
+}
+.sword-checkbox input + label::before {
+  transform: translateY(var(--sword-offset-y));
+  margin-inline-end: -2px;
+}
+.sword-checkbox input:focus-visible + label {
+  outline: 2px solid #fff0ba;
+  outline-offset: 2px;
+}
+.sword-checkbox.compact-toggle input + label {
+  display: inline-flex;
+  align-items: center;
+  line-height: 19px;
+}
+select,
+option {
+  font-family: "River Avenue", serif;
+  font-weight: 400;
+}
