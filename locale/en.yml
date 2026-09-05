@@ -1,55 +1,108 @@
-ai_swapper: AI Swapper
-ai_swapper_descr: Modify the AI slots of the game.
-slot.name.rat: Rat
-slot.name.snake: Snake
-slot.name.pig: Pig
-slot.name.wolf: Wolf
-slot.name.saladin: Saladin
-slot.name.caliph: Caliph
-slot.name.sultan: Sultan
-slot.name.richard: Richard
-slot.name.frederick: Frederick
-slot.name.phillip: Phillip
-slot.name.wazir: Wazir
-slot.name.emir: Emir
-slot.name.nizar: Nizar
-slot.name.sheriff: Sheriff
-slot.name.marshal: Marshal
-slot.name.abbot: Abbot
-select.img: Image
-select.name: Name
-select.version: Version
-select.author: Author
-select.nativeroot: Native Path
-select.defaultlang: Default Language
-select.supportedlang: Supported Languages
-select.binks: Binks
-select.speech: Speech
-select.lines: Lines
-select.portrait: Portrait
-select.aic: AIC
-select.aiv: AIV
-select.lord: Lord
-select.starttroops: Start Troops
-select.filter.label: "Filter by name:"
-language.default: "Language to use as default if not set for slot:"
-language.default.default: Default
-change.controls.priority: Priority
-change.controls.remove: Remove
-change.image: Image
-change.name: Name
-change.plugin: Plugin
-change.path: Path
-change.language: Language
-change.binks: Binks
-change.speech: Speech
-change.lines: Lines
-change.portrait: Portrait
-change.aic: AIC
-change.aiv: AIV
-change.lord: Lord
-change.starttroops: Start Troops
-change.language.default: Default
-change.language.default.ai: AI Default
-change.button.select: Add AI to Configuration
+ai_swapper_descr: "Modify the AI slots of the game."
+menu.reset: "Reset slot"
+menu.inuse: "Active"
+menu.help: "Click a card to add an AI. Higher entries have priority."
+menu.search: "Find an AI, pack or author"
+menu.language: "AI language"
+menu.retry: "Retry portraits"
+menu.slots: "AI slots"
+menu.components: "Effective components"
+menu.slot: "Slot: {name}"
+menu.edit: "Edit {name}"
+menu.mixed: "Mixed components"
+menu.vanilla: "Original game"
+menu.default: "Default"
+menu.plugin: "Plugin: {name}"
+menu.selection: "Your selection"
+menu.inherited: "Inherited default"
+menu.problems: "Loading problems: {count}"
+menu.priority: "Priority {count}"
+menu.count: "Available: {available} · Selected: {selected}"
+menu.nomatch: "No matching AIs."
+menu.noais: "No AIs loaded from the active plugins."
+menu.add: "Add {name}"
+state.enabled: "Enabled"
+state.inherit: "Inherit"
+state.deactivated: "Deactivated"
+change.language.default: "Use menu language"
+change.language.default.ai: "Use AI's default language"
+language.default.default: "Use each AI's default language"
 change.button.locked: "Locked by plugin:"
+change.controls.remove: "Remove"
+menu.up: "Higher priority"
+menu.down: "Lower priority"
+term.image: "Image"
+term.name: "Name"
+term.version: "Version"
+term.author: "Author"
+term.path: "Resource path"
+term.defaultlang: "Default language"
+term.languages: "Supported languages"
+term.binks: "Videos"
+term.speech: "Speech"
+term.lines: "Text"
+term.portrait: "Portrait"
+term.aic: "AI behaviour"
+term.aiv: "Castles"
+term.lord: "Lord"
+term.starttroops: "Starting troops"
+term.priority: "Priority"
+term.plugin: "Plugin"
+term.language: "Language"
+menu.metadataerror: "Could not load AI metadata: {path}"
+menu.portraiterror: "Could not load portrait: {path}"
+ai_swapper: "AI Swapper"
+menu.locale: "en"
+slot.name.rat: "Rat"
+slot.name.snake: "Snake"
+slot.name.pig: "Pig"
+slot.name.wolf: "Wolf"
+slot.name.saladin: "Saladin"
+slot.name.caliph: "Caliph"
+slot.name.sultan: "Sultan"
+slot.name.richard: "Richard"
+slot.name.frederick: "Frederick"
+slot.name.phillip: "Phillip"
+slot.name.wazir: "Wazir"
+slot.name.emir: "Emir"
+slot.name.nizar: "Nizar"
+slot.name.sheriff: "Sheriff"
+slot.name.marshal: "Marshal"
+slot.name.abbot: "Abbot"
+select.img: "Image"
+select.name: "Name"
+select.version: "Version"
+select.author: "Author"
+select.nativeroot: "Resource path"
+select.defaultlang: "Default language"
+select.supportedlang: "Supported languages"
+select.binks: "Videos"
+select.speech: "Speech"
+select.lines: "Text"
+select.portrait: "Portrait"
+select.aic: "AI behaviour"
+select.aiv: "Castles"
+select.lord: "Lord"
+select.starttroops: "Starting troops"
+change.image: "Image"
+change.name: "Name"
+change.plugin: "Plugin"
+change.path: "Resource path"
+change.language: "Language"
+change.binks: "Videos"
+change.speech: "Speech"
+change.lines: "Text"
+change.portrait: "Portrait"
+change.aic: "AI behaviour"
+change.aiv: "Castles"
+change.lord: "Lord"
+change.starttroops: "Starting troops"
+change.controls.priority: "Priority"
+select.filter.label: "Find an AI, pack or author"
+language.default: "AI language"
+change.button.select: "Add AI"
+state.required: "Required by plugin"
+menu.override: "Your override of {name}"
+menu.reset.hint: "Remove your overrides for this slot and restore plugin/game defaults."
+menu.inuse.hint: "Show only AIs assigned to this slot."
+menu.language.unspecified: "No language specified"
