@@ -1233,6 +1233,9 @@ function initMainElements() {
 
 /** INIT **/
 
+// Websandbox snapshots method names before asynchronous initialization finishes.
+SANDBOX_FUNCTIONS.getConfigQualifiers = createResultQualifiers;
+
 addEventListener(
   DONE_EVENT_NAME,
   async () => {
@@ -1241,7 +1244,6 @@ addEventListener(
     await receiveCurrentConfig();
     initMainElements();
     SANDBOX_FUNCTIONS.getConfig = createResultConfig;
-    SANDBOX_FUNCTIONS.getConfigQualifiers = createResultQualifiers;
   },
   { once: true },
 );

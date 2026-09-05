@@ -2,8 +2,10 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const source = fs.readFileSync(require('node:path').join(__dirname, '../menu/ai-swapper.js'), 'utf8');
-const context = vm.createContext({ assert, DONE_EVENT_NAME: 'ready', addEventListener() {}, document: { createElement: () => ({ setAttribute() {} }) } });
+const context = vm.createContext({ SANDBOX_FUNCTIONS: {}, assert, DONE_EVENT_NAME: 'ready', addEventListener() {}, document: { createElement: () => ({ setAttribute() {} }) } });
 vm.runInContext(source, context);
+// The API must be advertised before the async ready listener runs.
+assert.equal(typeof context.SANDBOX_FUNCTIONS.getConfigQualifiers, "function");
 vm.runInContext(`
   localize = key => key;
   let values = {menu: {}, 'ai.rat.speech': {active: false}, 'ai.rat.portrait': {}, 'ai.wolf.speech': {}, 'ai.wolf.aic': undefined};
@@ -41,6 +43,7 @@ vm.runInContext(`
   assert.equal(renders, 2);
   assert.equal(createQualifierControl([], 'Empty', () => {}).disabled, true);
   assert.equal(createResultQualifiers()['ai.wolf.aic'], undefined);
+  assert.equal(SANDBOX_FUNCTIONS.getConfigQualifiers()['ai.rat.speech'], 'suggested');
   values['ai.rat.speech'] = undefined;
   assert.equal(createResultQualifiers()['ai.rat.speech'], undefined);
 `, context);

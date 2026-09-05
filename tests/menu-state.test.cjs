@@ -40,6 +40,7 @@ const english = readLocale("en");
       );
     }
     const context = vm.createContext({
+      SANDBOX_FUNCTIONS: {},
       document: { documentElement: {}, createElement: () => ({}) },
       HOST_FUNCTIONS: { getLocalizedString: async (key) => catalog[key] },
       addEventListener() {},
