@@ -558,3 +558,15 @@ input[type="search"] {
   transform: translateY(var(--sword-offset-y));
   margin-inline-end: -2px;
 }
+
+/* Creator controls occupy the existing overview/help rows, never the AI cards. */
+.qualifier-control { width: 18px; height: 18px; padding: 0; border-width: 3px; font: 12px Arial; line-height: 12px; color: #e7d69d; vertical-align: middle; }
+.qualifier-control:disabled { opacity: .4; cursor: default; }
+.qualifier-required { color: #e0a375; }
+.compact-summary .has-qualifier { position: relative; padding-inline-end: 22px; }
+.compact-summary .qualifier-control { position: absolute; inset-inline-end: 2px; top: 50%; transform: translateY(-50%); }
+.compact-slot-heading, .compact-help-row { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.compact-help-row { justify-content: space-between; }
+.compact-help-row .compact-help { margin: 0; }
+
+.compact-all-qualifier { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 11px; }

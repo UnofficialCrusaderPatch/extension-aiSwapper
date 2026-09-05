@@ -21,3 +21,9 @@ The language resolver mirrors `determineOrVerifyLanguage` in `init.lua`: explici
 This change targets version **1.3.0**. Local preview rebuilds reuse that version; version changes are deliberate release changes. The build never changes version numbers or installs the module. Package generated menu files with the original runtime files and all locale files, preserving explicit ZIP directory entries (especially `locale/`).
 
 The old dialog presentation has been removed; its AI configuration model remains shared by the compact menu. No game/framework smoke test is part of the source checks above.
+
+## Creator qualifiers
+
+The optional host `qualifierEditing` capability and `creatorMode` flag enable persistent component/slot/all-slot controls. Old GUIs keep the original menu with these controls hidden. `getConfigQualifiers()` returns staged qualifiers separately from `getConfig()`; Close never changes host state.
+
+Group controls cover explicit runtime component overrides only, excluding inherited values, the submenu bookkeeping object and default language. Mixed becomes Required on the next click; Required becomes Suggested. A component must have a local selection before its qualifier can be changed. Upstream required components remain locked. Keep this independent from the enabled/inherit/deactivated sword cycle.

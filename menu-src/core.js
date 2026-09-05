@@ -1,3 +1,33 @@
+// Qualifiers are staged with menu values and committed only by Save/Save and Close.
+let QUALIFIER_EDITING = false;
+let USER_QUALIFIERS = {};
+function createResultQualifiers() {
+  const values = createResultConfig();
+  return Object.fromEntries(Object.entries(USER_QUALIFIERS).filter(([key]) => values[key] !== undefined));
+}
+function qualifierKeys(slotName) {
+  return Object.entries(createResultConfig()).filter(([key, value]) => value !== undefined &&
+    /^ai\.[^.]+\.[^.]+$/.test(key) && (!slotName || key.startsWith(`ai.${slotName}.`))).map(([key]) => key);
+}
+function createQualifierControl(keys, label, onChange) {
+  const button = document.createElement('button');
+  const states = new Set(keys.map((key) => USER_QUALIFIERS[key] === 'required' ? 'required' : 'suggested'));
+  const state = states.size > 1 ? 'mixed' : states.has('required') ? 'required' : 'suggested';
+  button.type = 'button';
+  button.className = `qualifier-control qualifier-${state}`;
+  button.textContent = {required: '\u25c6', suggested: '\u25c7', mixed: '\u25e9'}[state];
+  button.title = `${label}: ${localize(`qualifier.${state}`)}. ${localize(keys.length ? 'qualifier.action' : 'qualifier.empty')}`;
+  button.setAttribute('aria-label', button.title);
+  button.setAttribute('aria-pressed', state === 'mixed' ? 'mixed' : String(state === 'required'));
+  button.disabled = !keys.length;
+  button.onclick = () => {
+    const next = state === 'required' ? 'suggested' : 'required';
+    keys.forEach((key) => { USER_QUALIFIERS[key] = next; });
+    onChange();
+  };
+  return button;
+}
+
 /** STATIC CONSTANTS **/
 
 const AI_SLOTS_NAMES = [
@@ -974,7 +1004,9 @@ async function receiveAllAvailableAi() {
 }
 
 async function receiveCurrentConfig() {
-  const { baseline, user } = await HOST_FUNCTIONS.getCurrentConfig();
+  const { baseline, user, qualifiers, creatorMode, qualifierEditing } = await HOST_FUNCTIONS.getCurrentConfig();
+  QUALIFIER_EDITING = !!creatorMode && !!qualifierEditing;
+  USER_QUALIFIERS = { ...(qualifiers ?? {}) };
   MENU_LOCKED = baseline.menu?.modifications?.value?.qualifier === "required";
   DEFAULT_LANGUAGE_LOCKED =
     baseline.defaultLanguage?.modifications?.value?.qualifier === "required";
@@ -1072,6 +1104,7 @@ addEventListener(
     await receiveCurrentConfig();
     initMainElements();
     SANDBOX_FUNCTIONS.getConfig = createResultConfig;
+    SANDBOX_FUNCTIONS.getConfigQualifiers = createResultQualifiers;
   },
   { once: true },
 );
