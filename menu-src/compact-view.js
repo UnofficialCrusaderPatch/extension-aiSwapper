@@ -164,7 +164,23 @@ class CompactAiMenu {
           ? localize("menu.plugin", { name: winner.extension })
           : localize("menu.selection")
         : localize("menu.inherited");
+      if (QUALIFIER_EDITING) {
+        const key = `ai.${this.current}.${component}`;
+        const keys = qualifierKeys(this.current).filter((entry) => entry === key);
+        cell.classList.add('has-qualifier');
+        cell.appendChild(createQualifierControl(keys, localize(`term.${component.toLowerCase()}`), () => this.render(), qualifierScope(this.current).filter((entry) => entry === key)));
+      }
       summary.appendChild(cell);
+    }
+    const slotControl = document.querySelector('.compact-slot-qualifier');
+    const allControl = document.querySelector('.compact-all-qualifier');
+    slotControl.replaceChildren();
+    allControl.replaceChildren();
+    slotControl.hidden = allControl.hidden = !QUALIFIER_EDITING;
+    if (QUALIFIER_EDITING) {
+      slotControl.appendChild(createQualifierControl(qualifierKeys(this.current), localize('qualifier.slot'), () => this.render(), qualifierScope(this.current)));
+      allControl.appendChild(document.createElement('span')).textContent = localize('qualifier.all');
+      allControl.appendChild(createQualifierControl(qualifierKeys(), localize('qualifier.all'), () => this.render(), qualifierScope()));
     }
     this.renderCards();
     const diagnostics = document.querySelector(".compact-diagnostics");

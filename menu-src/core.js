@@ -1,3 +1,51 @@
+// Qualifiers are staged with menu values and committed only by Save/Save and Close.
+let QUALIFIER_EDITING = false;
+let USER_QUALIFIERS = {};
+function createResultQualifiers() {
+  const values = createResultConfig();
+  return Object.fromEntries(Object.entries(USER_QUALIFIERS).filter(([key]) => values[key] !== undefined));
+}
+function qualifierKeys(slotName) {
+  return Object.entries(createResultConfig()).filter(([key, value]) => value !== undefined &&
+    /^ai\.[^.]+\.[^.]+$/.test(key) && (!slotName || key.startsWith(`ai.${slotName}.`))).map(([key]) => key);
+}
+function qualifierScope(slotName) {
+  return [...AI_SLOTS].filter(([name]) => !slotName || name === slotName).flatMap(([name, slot]) =>
+    AI_CONTROL_SETTINGS.filter((component) => !slot.isComponentRequired(component) && slot.getEffectiveSetting(component)).map((component) => `ai.${name}.${component}`));
+}
+// Same Bootstrap Icons as the host GUI (react-bootstrap-icons 1.11.4).
+// See menu/bootstrap-icons-LICENSE.txt. Static SVG paths are never AI data.
+const QUALIFIER_ICON_PATHS = {
+  "mixed": "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+};
+
+function createQualifierControl(keys, label, onChange, scope = keys) {
+  const button = document.createElement('button');
+  const states = new Set(keys.map((key) => USER_QUALIFIERS[key] === 'required' ? 'required' : 'suggested'));
+  const actionState = states.size > 1 ? 'mixed' : states.has('required') ? 'required' : 'suggested';
+  const state = actionState === 'required' && scope.some((key) => !keys.includes(key)) ? 'mixed' : actionState;
+  button.type = 'button';
+  button.className = `qualifier-control qualifier-${state}`;
+  button.innerHTML = state === 'mixed' ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${QUALIFIER_ICON_PATHS[state]}"/></svg>` : '';
+  button.title = `${label}: ${localize(`qualifier.${state}`)}. ${localize(scope.length ? 'qualifier.action' : 'qualifier.empty')}`;
+  button.setAttribute('aria-label', button.title);
+  button.setAttribute('aria-pressed', state === 'mixed' ? 'mixed' : String(state === 'required'));
+  button.disabled = !scope.length;
+  button.onclick = () => {
+    const next = state === 'required' ? 'suggested' : 'required';
+    for (const key of scope) {
+      const [, slotName, component] = key.split('.');
+      const slot = AI_SLOTS.get(slotName);
+      const source = slot?.getEffectiveSetting(component);
+      if (source) slot.customizeComponent(source, component, source.control[component]);
+    }
+    const values = createResultConfig();
+    scope.filter((key) => values[key] !== undefined).forEach((key) => { USER_QUALIFIERS[key] = next; });
+    onChange();
+  };
+  return button;
+}
+
 /** STATIC CONSTANTS **/
 
 const AI_SLOTS_NAMES = [
@@ -974,7 +1022,9 @@ async function receiveAllAvailableAi() {
 }
 
 async function receiveCurrentConfig() {
-  const { baseline, user } = await HOST_FUNCTIONS.getCurrentConfig();
+  const { baseline, user, qualifiers, creatorMode, qualifierEditing } = await HOST_FUNCTIONS.getCurrentConfig();
+  QUALIFIER_EDITING = !!creatorMode && !!qualifierEditing;
+  USER_QUALIFIERS = { ...(qualifiers ?? {}) };
   MENU_LOCKED = baseline.menu?.modifications?.value?.qualifier === "required";
   DEFAULT_LANGUAGE_LOCKED =
     baseline.defaultLanguage?.modifications?.value?.qualifier === "required";
@@ -1063,6 +1113,9 @@ function initMainElements() {
 }
 
 /** INIT **/
+
+// Websandbox snapshots method names before asynchronous initialization finishes.
+SANDBOX_FUNCTIONS.getConfigQualifiers = createResultQualifiers;
 
 addEventListener(
   DONE_EVENT_NAME,
