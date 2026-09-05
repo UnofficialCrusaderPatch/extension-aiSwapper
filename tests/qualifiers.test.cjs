@@ -12,11 +12,22 @@ vm.runInContext(`
   assert.deepEqual(Array.from(qualifierKeys('rat')), ['ai.rat.speech', 'ai.rat.portrait']);
   assert.equal(qualifierKeys().length, 3);
   USER_QUALIFIERS['ai.rat.speech'] = 'required';
+  values['ai.rat.portrait'] = undefined;
+  const inherited = Object.freeze({control: Object.freeze({speech:false, portrait:true})});
+  AI_SLOTS.set('rat', {
+    getEffectiveSetting: () => inherited,
+    customizeComponent(source, component, value) { values['ai.rat.' + component] = {active:value}; },
+  });
   const partial = createQualifierControl(['ai.rat.speech'], 'Rat', () => {}, ['ai.rat.speech', 'ai.rat.portrait']);
   assert.equal(partial.className, 'qualifier-control qualifier-mixed');
   partial.onclick();
-  assert.equal(USER_QUALIFIERS['ai.rat.speech'], 'suggested');
-  assert.equal(USER_QUALIFIERS['ai.rat.portrait'], undefined);
+  assert.equal(USER_QUALIFIERS['ai.rat.speech'], 'required');
+  assert.equal(USER_QUALIFIERS['ai.rat.portrait'], 'required');
+  assert.equal(values['ai.rat.speech'].active, false);
+  assert.equal(values['ai.rat.portrait'].active, true);
+  assert.equal(inherited.control.portrait, true);
+  AI_SLOTS.clear();
+  delete USER_QUALIFIERS['ai.rat.portrait'];
   USER_QUALIFIERS['ai.rat.speech'] = 'required';
   let renders = 0;
   const mixed = createQualifierControl(qualifierKeys('rat'), 'Rat', () => renders++);

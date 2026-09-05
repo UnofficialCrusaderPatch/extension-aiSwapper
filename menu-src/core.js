@@ -11,7 +11,7 @@ function qualifierKeys(slotName) {
 }
 function qualifierScope(slotName) {
   return [...AI_SLOTS].filter(([name]) => !slotName || name === slotName).flatMap(([name, slot]) =>
-    AI_CONTROL_SETTINGS.filter((component) => !slot.isComponentRequired(component)).map((component) => `ai.${name}.${component}`));
+    AI_CONTROL_SETTINGS.filter((component) => !slot.isComponentRequired(component) && slot.getEffectiveSetting(component)).map((component) => `ai.${name}.${component}`));
 }
 // Same Bootstrap Icons as the host GUI (react-bootstrap-icons 1.11.4).
 // See menu/bootstrap-icons-LICENSE.txt. Static SVG paths are never AI data.
@@ -27,13 +27,20 @@ function createQualifierControl(keys, label, onChange, scope = keys) {
   button.type = 'button';
   button.className = `qualifier-control qualifier-${state}`;
   button.innerHTML = state === 'mixed' ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${QUALIFIER_ICON_PATHS[state]}"/></svg>` : '';
-  button.title = `${label}: ${localize(`qualifier.${state}`)}. ${localize(keys.length ? 'qualifier.action' : 'qualifier.empty')}`;
+  button.title = `${label}: ${localize(`qualifier.${state}`)}. ${localize(scope.length ? 'qualifier.action' : 'qualifier.empty')}`;
   button.setAttribute('aria-label', button.title);
   button.setAttribute('aria-pressed', state === 'mixed' ? 'mixed' : String(state === 'required'));
-  button.disabled = !keys.length;
+  button.disabled = !scope.length;
   button.onclick = () => {
-    const next = actionState === 'required' ? 'suggested' : 'required';
-    keys.forEach((key) => { USER_QUALIFIERS[key] = next; });
+    const next = state === 'required' ? 'suggested' : 'required';
+    for (const key of scope) {
+      const [, slotName, component] = key.split('.');
+      const slot = AI_SLOTS.get(slotName);
+      const source = slot?.getEffectiveSetting(component);
+      if (source) slot.customizeComponent(source, component, source.control[component]);
+    }
+    const values = createResultConfig();
+    scope.filter((key) => values[key] !== undefined).forEach((key) => { USER_QUALIFIERS[key] = next; });
     onChange();
   };
   return button;

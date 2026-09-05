@@ -168,7 +168,7 @@ class CompactAiMenu {
         const key = `ai.${this.current}.${component}`;
         const keys = qualifierKeys(this.current).filter((entry) => entry === key);
         cell.classList.add('has-qualifier');
-        cell.appendChild(createQualifierControl(keys, localize(`term.${component.toLowerCase()}`), () => this.render()));
+        cell.appendChild(createQualifierControl(keys, localize(`term.${component.toLowerCase()}`), () => this.render(), qualifierScope(this.current).filter((entry) => entry === key)));
       }
       summary.appendChild(cell);
     }

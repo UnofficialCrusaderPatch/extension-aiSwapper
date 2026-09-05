@@ -575,7 +575,7 @@ button.qualifier-control { width: 16px; height: 18px; padding: 0; border: 0; bor
 .qualifier-control.qualifier-required,
 .qualifier-control.qualifier-suggested {
   background-repeat: no-repeat;
-  background-position: right center;
+  background-position: right calc(50% - 2px);
   background-size: 16px 16px;
   image-rendering: pixelated;
 }
