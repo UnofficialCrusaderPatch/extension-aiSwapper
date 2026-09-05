@@ -18,7 +18,7 @@ node tests/menu-state.test.cjs
 
 The language resolver mirrors `determineOrVerifyLanguage` in `init.lua`: explicit selection, menu default, AI default; unsupported choices fall back to the AI default. Displaying a resolved language does not create a user override. A new selection stores the resolved language; changing a dropdown stores the selected language code. The per-AI dropdown contains language codes, with localized labels, rather than duplicate “default” options.
 
-This change targets version **1.3.0**. Local preview rebuilds reuse that version; version changes are deliberate release changes. The build never changes version numbers or installs the module. Package generated menu files with the original runtime files and all locale files, preserving explicit ZIP directory entries (especially `locale/`).
+This change targets version **1.4.0**. Local preview rebuilds reuse that version; version changes are deliberate release changes. The build never changes version numbers or installs the module. Package generated menu files with the original runtime files and all locale files, preserving explicit ZIP directory entries (especially `locale/`).
 
 The old dialog presentation has been removed; its AI configuration model remains shared by the compact menu. No game/framework smoke test is part of the source checks above.
 

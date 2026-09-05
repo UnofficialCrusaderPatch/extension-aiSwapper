@@ -1,4 +1,3 @@
-## Unreleased
+## 1.4.0 (unreleased)
 
-- Add compact Creator-mode required/suggested controls for components, slots and all configured AI changes. Requires a GUI with qualifier-editing support.
-
+- Add compact Creator-mode controls to require or suggest individual AI selections, a whole slot, or all slots. Mixed groups show a dash. Requires GUI qualifier-editing support.
