@@ -19,8 +19,8 @@
     <!-- Required in order to export a luaopen_mymodulename function -->
     <PackageReference Include="lua" Version="5.4.6" />
     
-    <!-- Not strictly required -->
-    <PackageReference Include="UnofficialCrusaderPatch3" />
+    <!-- Build against the SDK supplied by the UCP 3.0.7 release. -->
+    <PackageReference Include="UnofficialCrusaderPatch3" Version="[3.0.7]" />
     
   </ItemGroup>
 </Project>
